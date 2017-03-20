@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from restaurant_manager import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^(?P<menu_id>[0-9]+)/$', views.change_form, name='change_form'),
 ]
