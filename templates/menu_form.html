@@ -2,9 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Menu list</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.css' %}" />
+    <script src="{% static 'jquery\jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap\js\bootstrap.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}"/>
+    <style>
+    </style>
 </head>
 <body>
-
+<div class="container-fluid">
+        <div>
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">AcRestaurant</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/menu/">Our Menu</a></li>
+                    <li class="active" href="/item/"><a onclick="location.reload()">Our Items</a></li>
+                    <li><a onclick="location.reload()">Github</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+    <div class="wrapper">
+        <h1> Update menu </h1>
+        <form action="{% url 'post_change_form' %}" method="post">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{ menu_item.id }}">
+            <h3>Name:</h3><br>
+            <input type="text" name="name" id="name" placeholder="{{ menu_item.name }}"/>
+            <br>
+        <h3>Time:</h3><br>
+            <input type="time" name="time" value="{% if menu_item.time.hour != 0  %}{{ menu_item.time.hour}}{% else %}00{% endif %}:{% if menu_item.time.minute != 0  %}{{ menu_item.time.minute }}{% else %}00{% endif %}:{% if menu_item.time.second != 0  %}{{ menu_item.time.second }}{% else %}00{% endif %}"/>
+        <br>
+        <h3>Items:</h3><br>
+            <select multiple name="menu" style="margin-bottom: 25px;">
+                {% for i in items %}
+                <option value="{{ i.id }}" {% if i in menu_item.items.all %} selected {% endif %}>
+                    {{ i.name }}
+                </option>
+                {% endfor %}
+            </select>
+        <br>
+            <input type="submit" value="Save">
+        </form>
+    </div>
 </body>
 </html>

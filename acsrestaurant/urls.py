@@ -19,5 +19,9 @@ from restaurant_manager import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^(?P<menu_id>[0-9]+)/$', views.change_form, name='change_form'),
+    url(r'^menu/(?P<menu_id>[a-zA-Z0-9]+)/$', views.change_form, name='change_form'),
+    url(r'^menu/delete/(?P<menu_id>[a-zA-Z0-9]+)/$', views.menu_delete, name='menu_delete'),
+    url(r'^menu/save$', views.post_change_form, name='post_change_form'),
+    url(r'^menu/$', views.menu_list, name='menu'),
+    url(r'^item/$', views.item_list, name='list'),
 ]

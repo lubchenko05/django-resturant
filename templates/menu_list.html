@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu list</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.css' %}" />
+    <script src="{% static 'jquery\jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap\js\bootstrap.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}" />
+
+    <style>
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+        <div>
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">AcRestaurant</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active" href="/menu/"><a onclick="location.reload()">Our Menu</a></li>
+                    <li><a href="/item/">Our Items</a></li>
+                    <li><a >Github</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+<h1>Menu list</h1>
+            <div class="col-md-6">
+<table class="table table-striped table-condensed table-bordered table-hover"border="1px" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>Name</th>
+        <th>time</th>
+        <th>items</th>
+        <th></th>
+    </tr>
+{% if menu_list %}
+    {% for menu in menu_list %}
+        <tr>
+            <td>{{ menu.name }}</td>
+            <td>{{ menu.time }}</td>
+            <td>{% for i in menu.items.all%}
+                    {%if menu.items.all.count > 1 %}
+                        {%if menu.items.all.first != i %}
+                        ,
+                        {%endif%}
+                    {%endif%}
+                    {{i}}
+                {%endfor%}
+            </td>
+            <td><a class="btn btn-xs btn-info" href="{% url 'change_form' menu.name %}">Edit</a>
+                <a class="btn btn-xs btn-danger" href="{% url 'menu_delete' menu.name %}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr><td>No menu are available.</td></tr>
+{% endif %}
+</table>
+            </div>
+</div>
+</body>
+</html>
