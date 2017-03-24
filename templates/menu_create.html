@@ -32,22 +32,21 @@
 <div class="panel panel-default">
 <div class="panel-body">
 <h1> Update menu </h1>
-<form class="form" action="{% url 'post_change_form' %}" method="post">
+<form class="form" action="{% url 'post_menu_create' %}" method="post">
 {% csrf_token %}
-<input type="hidden" name="id" value="{{ menu_item.id }}">
 <div class="form-group">
 <label for="name">Name:</label>
-<input class="form-control" type="text" name="name" id="name" placeholder="{{ menu_item.name }}"/>
+<input class="form-control" type="text" name="name" id="name"/>
 </div>
 <div class="form-group">
 <label for="time">Time:</label>
-<input class="form-control" id="time" type="time" name="time" value="{% if menu_item.time.hour >= 10 %}{{ menu_item.time.hour}}{% else %}0{{ menu_item.time.hour}}{% endif %}:{% if menu_item.time.minute >= 10 %}{{ menu_item.time.minute }}{% else %}0{{ menu_item.time.minute }}{% endif %}:{% if menu_item.time.second >= 10 %}{{ menu_item.time.second }}{% else %}0{{ menu_item.time.second }}{% endif %}"/>
+<input class="form-control" id="time" type="time" name="time" />
 </div>
 <div class="form-group">
 <label for="items">Items:</label>
 <select class="form-control" id="items" multiple name="menu" style="margin-bottom: 25px;">
 {% for i in items %}
-<option value="{{ i.id }}" {% if i in menu_item.items.all %} selected {% endif %}>
+<option value="{{ i.id }}">
 {{ i.name }}
 </option>
 {% endfor %}

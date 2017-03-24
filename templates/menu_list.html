@@ -30,6 +30,9 @@
         <div>
 <h1>Menu list</h1>
             <div class="col-md-6">
+                            <div class="form-group">
+                <a class="btn btn-info" href="/menu/create/">Create</a>
+                </div>
 <table class="table table-striped table-condensed table-bordered table-hover"border="1px" cellpadding="0" cellspacing="0">
     <tr>
         <th>Name</th>
@@ -41,7 +44,7 @@
     {% for menu in menu_list %}
         <tr>
             <td>{{ menu.name }}</td>
-            <td>{{ menu.time }}</td>
+            <td>{% if menu.time.hour < 10 %}0{% endif %}{{ menu.time.hour }}:{% if menu.time.minute < 10 %}0{% endif %}{{ menu.time.minute }}</td>
             <td>{% for i in menu.items.all%}
                     {%if menu.items.all.count > 1 %}
                         {%if menu.items.all.first != i %}
@@ -51,8 +54,8 @@
                     {{i}}
                 {%endfor%}
             </td>
-            <td><a class="btn btn-xs btn-info" href="{% url 'change_form' menu.name %}">Edit</a>
-                <a class="btn btn-xs btn-danger" href="{% url 'menu_delete' menu.name %}">Delete</a>
+            <td><a class="btn btn-xs btn-info" href="{% url 'change_form' menu.id %}">Edit</a>
+                <a class="btn btn-xs btn-danger" href="{% url 'menu_delete' menu.id %}">Delete</a>
             </td>
         </tr>
     {% endfor %}
